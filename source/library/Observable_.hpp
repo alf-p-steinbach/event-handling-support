@@ -5,12 +5,18 @@
 #include <unordered_set>    // std::unordered_set
 
 namespace event_handling_support {
-    $use_cppx( As_derived_, No_copy, Type_ );
+    $use_cppx(
+        With_derived_, No_copy, Type_,
+        Enable_if_, is_same_type_
+        );
     $use_std( unordered_set );
 
     template<
-        class Derived_param,                    // Use e.g. `As_derived_<D>` to create this type.
-        class Observer_interface_param
+        class Derived_param, class Observer_interface_param,
+        class = Enable_if_<is_same_type_<
+            Derived_param,
+            With_derived_<typename Derived_param::Derived>
+            >>
         >
     class Observable_:
         public No_copy
