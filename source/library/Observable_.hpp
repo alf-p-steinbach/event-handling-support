@@ -7,13 +7,13 @@
 namespace event_handling_support {
     $use_cppx(
         With_derived_, No_copy, Type_,
-        Enable_if_, is_same_type_
+        Require_, is_same_type_
         );
     $use_std( unordered_set );
 
     template<
         class Derived_param, class Observer_interface_param,
-        class = Enable_if_<is_same_type_<
+        class = Require_<is_same_type_<
             Derived_param,
             With_derived_<typename Derived_param::Derived>
             >>
